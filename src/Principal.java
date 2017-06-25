@@ -170,13 +170,11 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        getProducoes();
-
     }//GEN-LAST:event_jButton5ActionPerformed
 
 
 
-    public void getProducoes() {
+    public Vector getProducoes() {
         
         Vector v = new Vector();
         String Producoes = "";
@@ -201,10 +199,11 @@ public class Principal extends javax.swing.JFrame {
         }
 
         txtResposta.setText(Producoes);
+        return v;
 
     }
 
-    public void getTerminais() {
+    public Vector getTerminais() {
         Vector v = new Vector();
         String terminais = "";
 
@@ -224,9 +223,10 @@ public class Principal extends javax.swing.JFrame {
         }
 
         txtResposta.setText(terminais);
+        return v;
     }
 
-    public void getNaoTerminais() {
+    public Vector getNaoTerminais() {
         Vector v = new Vector();
         String naoTerminais = "";
 
@@ -246,6 +246,7 @@ public class Principal extends javax.swing.JFrame {
         }
 
         txtResposta.setText(naoTerminais);
+        return v;
 
     }
     
@@ -262,6 +263,13 @@ public class Principal extends javax.swing.JFrame {
             producao = b[i];
             v.add(letraInicial+ "=" + producao);
         }
+    }
+     
+    public String getSimboloInicial()
+    {
+        String texto = txtProducoes.getText();
+        String a[] = texto.split("=");
+        return a[0];
     }
 
     /**
