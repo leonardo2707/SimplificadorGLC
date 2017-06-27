@@ -68,7 +68,7 @@ public class SimplificacaoUnitaria {
             ladoEsquerdo = getLadoEsquerdo(p.elementAt(i).toString());
             if (ladoEsquerdo.equals(unitaria)) {
                 elementoDireito = getLadoDireito(p.elementAt(i).toString());
-                if(!elementoDireito.equal(unitaria))
+                if(ladoEsquerdo.equals(unitaria))
                 {
                     if (flag) {
                         producoesUnitaria += "|" + elementoDireito;
@@ -103,13 +103,13 @@ public class SimplificacaoUnitaria {
         
        for (int i = 0; i < Producoes.size(); i++) {
 
-            elementoDireito = getLadoDireito(p.elementAt(i).toString());
+            elementoDireito = getLadoDireito(Producoes.elementAt(i).toString());
 
             if(elementoDireito.equals(unitaria))
             {
-                producaoSemUnitario = p.elementAt(i).toString();
-                producaoSemUnitario = producaoSemUnitario.replace(unitaria,producoesUnitaria);
-                novaProducao.add(producaoSemUnitario);
+                ladoEsquerdo = getLadoEsquerdo(Producoes.elementAt(i).toString());
+                
+                novaProducao.add(ladoEsquerdo + "=" +producoesUnitaria);
             }else
             {
                 if(!elementoDireito.equals(unitaria))
@@ -128,7 +128,7 @@ public class SimplificacaoUnitaria {
             
         }
 
-       //novaProducao = organizaProducoes(novaProducao);
+       novaProducao = organizaProducoes(novaProducao);
         
        System.out.println("\n\n\nE O QUE TA SAINDO AQUI DIMITRY!!!"); 
        for (int i = 0; i < novaProducao.size(); i++) {
@@ -152,8 +152,7 @@ public class SimplificacaoUnitaria {
         return a[0];
     }
 
-    public Vector separaPipe(String texto) {
-        Vector v = new Vector();
+    public void separaPipe(Vector v, String texto) {
         String a[] = texto.split("=");
         String letraInicial = a[0];
         String producoesComPipe = a[1];
@@ -165,7 +164,23 @@ public class SimplificacaoUnitaria {
             producao = b[i];
             v.add(letraInicial + "=" + producao);
         }
+    }
+    
+    public Vector separaVirgula(String producaoCompleta)
+    {
+        Vector v = new Vector();
+        String Producoes = "";
 
+        String a[] = producaoCompleta.split(",");
+
+        for (int i = 0; i < a.length; i++) {
+            if (a[i].contains("|")) {
+                separaPipe(v, a[i]);
+            } else {
+                v.add(a[i]);
+            }
+        }
+        
         return v;
     }
 
@@ -191,7 +206,9 @@ public class SimplificacaoUnitaria {
                 }
             }
         }
-        p = separaPipe(producaoComleta);
+        
+        
+        p = separaVirgula(producaoComleta);
 
         return p;
     }
