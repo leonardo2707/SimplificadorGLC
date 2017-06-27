@@ -68,19 +68,22 @@ public class SimplificacaoUnitaria {
             ladoEsquerdo = getLadoEsquerdo(p.elementAt(i).toString());
             if (ladoEsquerdo.equals(unitaria)) {
                 elementoDireito = getLadoDireito(p.elementAt(i).toString());
-                if (flag) {
-                    producoesUnitaria += "|" + elementoDireito;
+                if(!elementoDireito.equal(unitaria))
+                {
+                    if (flag) {
+                        producoesUnitaria += "|" + elementoDireito;
 
-                } else {
-                    producoesUnitaria = elementoDireito;
-                    flag = true;
+                    } else {
+                        producoesUnitaria = elementoDireito;
+                        flag = true;
+                    }
                 }
             }
         }
         
         String producaoSemUnitario;
             
-        for (int i = 0; i < p.size(); i++) {
+     /*   for (int i = 0; i < p.size(); i++) {
 
             elementoDireito = getLadoDireito(p.elementAt(i).toString());
 
@@ -88,23 +91,31 @@ public class SimplificacaoUnitaria {
             {
                 producaoSemUnitario = p.elementAt(i).toString().replace(unitaria,producoesUnitaria);
                 novaProducao.insertElementAt(producaoSemUnitario, i);
+               // insertElementAt(producaoSemUnitario, i);
             }else
             {
                 novaProducao.add(p.elementAt(i).toString());
             }
             
 
-        }
+        }*/
         
-        for (int i = 0; i < novaProducao.size(); i++) {
+        
+       for (int i = 0; i < Producoes.size(); i++) {
 
-            elementoDireito = getLadoDireito(novaProducao.elementAt(i).toString());
+            elementoDireito = getLadoDireito(p.elementAt(i).toString());
 
             if(elementoDireito.equals(unitaria))
             {
-                producaoSemUnitario = novaProducao.elementAt(i).toString();
+                producaoSemUnitario = p.elementAt(i).toString();
                 producaoSemUnitario = producaoSemUnitario.replace(unitaria,producoesUnitaria);
-                novaProducao.insertElementAt(producaoSemUnitario, i);
+                novaProducao.add(producaoSemUnitario);
+            }else
+            {
+                if(!elementoDireito.equals(unitaria))
+                {
+                  novaProducao.add(p.elementAt(i).toString());
+                }
             }
         }
         
