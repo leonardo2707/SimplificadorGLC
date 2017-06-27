@@ -67,7 +67,7 @@ public class SimplificacaoVazias {
         String producoesPossiveis = "";
         
         //trocar producções que possuim o não terminal que tinha o vazio
-        for (int i = 0; i < p.size(); i++) {
+        for (int i = 0; i < Producoes.size(); i++) {
 
             elementoDireito = getLadoDireito(Producoes.elementAt(i).toString());
             ladoEsquerdo = getLadoEsquerdo(Producoes.elementAt(i).toString());
@@ -89,7 +89,7 @@ public class SimplificacaoVazias {
     
     public String geraTodasProducoes(String producao, String NaoTerminal)
     {
-        return "";
+        return " ";
     }
 
     public Vector organizaProducoes(Vector p) {
