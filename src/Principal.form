@@ -128,7 +128,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextField" name="txtProducoes">
           <Properties>
-            <Property name="text" type="java.lang.String" value="S=aS|B,B=aS|DF,D=sB|aS"/>
+            <Property name="text" type="java.lang.String" value="S=as|B,B=aS|DaDD,D=sB|aS|&amp;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
@@ -208,7 +208,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtTerminais">
           <Properties>
-            <Property name="text" type="java.lang.String" value="a,s"/>
+            <Property name="text" type="java.lang.String" value="a,s,&amp;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNaoTerminal">

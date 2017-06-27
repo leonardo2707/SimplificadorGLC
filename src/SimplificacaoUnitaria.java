@@ -81,26 +81,6 @@ public class SimplificacaoUnitaria {
             }
         }
         
-        String producaoSemUnitario;
-            
-     /*   for (int i = 0; i < p.size(); i++) {
-
-            elementoDireito = getLadoDireito(p.elementAt(i).toString());
-
-            if(elementoDireito.equals(unitaria))
-            {
-                producaoSemUnitario = p.elementAt(i).toString().replace(unitaria,producoesUnitaria);
-                novaProducao.insertElementAt(producaoSemUnitario, i);
-               // insertElementAt(producaoSemUnitario, i);
-            }else
-            {
-                novaProducao.add(p.elementAt(i).toString());
-            }
-            
-
-        }*/
-        
-        
        for (int i = 0; i < Producoes.size(); i++) {
 
             elementoDireito = getLadoDireito(Producoes.elementAt(i).toString());
@@ -120,24 +100,10 @@ public class SimplificacaoUnitaria {
         }
         
         
-        
-       System.out.println("O QUE TA SAINDO AQUI DIMITRY!!!"); 
-       for (int i = 0; i < novaProducao.size(); i++) {
-            
-                System.out.println(novaProducao.elementAt(i));
-            
-        }
-
        novaProducao = organizaProducoes(novaProducao);
         
-       System.out.println("\n\n\nE O QUE TA SAINDO AQUI DIMITRY!!!"); 
-       for (int i = 0; i < novaProducao.size(); i++) {
-            
-                System.out.println(novaProducao.elementAt(i));
-            
-        }
-
         return novaProducao;
+        
     }
 
     public String getLadoDireito(String Producao) {

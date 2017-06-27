@@ -1,9 +1,5 @@
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Vector;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /*
@@ -23,6 +19,8 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
     }
+    
+    public Vector gramatica = new Vector();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,7 +51,7 @@ public class Principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SGLC");
 
-        txtProducoes.setText("S=aS|B,B=aS|DF,D=sB|aS");
+        txtProducoes.setText("S=as|B,B=aS|DaDD,D=sB|aS|&");
 
         jLabel1.setText("Produções:");
 
@@ -95,7 +93,7 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel6.setText("Não Terminais:");
 
-        txtTerminais.setText("a,s");
+        txtTerminais.setText("a,s,&");
 
         txtNaoTerminal.setText("S,B,D");
 
@@ -192,7 +190,14 @@ public class Principal extends javax.swing.JFrame {
 
     private void jbVaiziaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVaiziaActionPerformed
         // TODO add your handling code here:
-
+        SimplificacaoVazias vaz = new SimplificacaoVazias();
+        
+       if (!txtNaoTerminal.getText().equals("") && !txtProducoes.getText().equals("") && !txtTerminais.getText().equals("")) {
+           gramatica = vaz.Simplificado(getNaoTerminais(), getTerminais(), getProducoes(), getSimboloInicial());
+           mostrarProducoes(gramatica);
+        } else {
+            JOptionPane.showConfirmDialog(null, "Preencha todos os campos");
+        }
 
     }//GEN-LAST:event_jbVaiziaActionPerformed
 
@@ -202,7 +207,8 @@ public class Principal extends javax.swing.JFrame {
         SimplificacaoUnitaria unit = new SimplificacaoUnitaria();
 
         if (!txtNaoTerminal.getText().equals("") && !txtProducoes.getText().equals("") && !txtTerminais.getText().equals("")) {
-            mostrarProducoes(unit.Simplificado(getNaoTerminais(), getTerminais(), getProducoes(), getSimboloInicial()));
+            gramatica = unit.Simplificado(getNaoTerminais(), getTerminais(), getProducoes(), getSimboloInicial());
+            mostrarProducoes(gramatica);
         } else {
             JOptionPane.showConfirmDialog(null, "Preencha todos os campos");
         }
@@ -236,13 +242,6 @@ public class Principal extends javax.swing.JFrame {
                 v.add(a[i]);
             }
         }
-        
-        System.out.println("\n\nPRODUÇOES");
-       for (int i = 0; i < v.size(); i++) {
-            
-                System.out.println(v.elementAt(i));
-            
-        }
 
         return v;
 
@@ -258,14 +257,6 @@ public class Principal extends javax.swing.JFrame {
             v.add(st.nextToken());
         }
         //fim da função
-
-        
-       System.out.println("\n\nTERMINAIS");
-       for (int i = 0; i < v.size(); i++) {
-            
-                System.out.println(v.elementAt(i));
-            
-        }
         
         return v;
     }
@@ -279,15 +270,7 @@ public class Principal extends javax.swing.JFrame {
         while (st.hasMoreTokens()) {
             v.add(st.nextToken());
         }
-        //fim da função
-
-       System.out.println("\n\nNAO TERMINAIS");
-       for (int i = 0; i < v.size(); i++) {
-            
-                System.out.println(v.elementAt(i));
-            
-        }
-        
+        //fim da função    
         
         return v;
 
