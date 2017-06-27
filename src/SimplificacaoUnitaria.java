@@ -95,8 +95,22 @@ public class SimplificacaoUnitaria {
             
 
         }
+        
+       System.out.println("O QUE TA SAINDO AQUI DIMITRY!!!"); 
+       for (int i = 0; i < novaProducao.size(); i++) {
+            
+                System.out.println(novaProducao.elementAt(i));
+            
+        }
 
-        novaProducao = organizaProducoes(novaProducao);
+       novaProducao = organizaProducoes(novaProducao);
+        
+       System.out.println("\n\n\nE O QUE TA SAINDO AQUI DIMITRY!!!"); 
+       for (int i = 0; i < novaProducao.size(); i++) {
+            
+                System.out.println(novaProducao.elementAt(i));
+            
+        }
 
         return novaProducao;
     }
