@@ -96,6 +96,20 @@ public class SimplificacaoUnitaria {
 
         }
         
+        for (int i = 0; i < novaProducao.size(); i++) {
+
+            elementoDireito = getLadoDireito(novaProducao.elementAt(i).toString());
+
+            if(elementoDireito.equals(unitaria))
+            {
+                producaoSemUnitario = novaProducao.elementAt(i).toString();
+                producaoSemUnitario = producaoSemUnitario.replace(unitaria,producoesUnitaria);
+                novaProducao.insertElementAt(producaoSemUnitario, i);
+            }
+        }
+        
+        
+        
        System.out.println("O QUE TA SAINDO AQUI DIMITRY!!!"); 
        for (int i = 0; i < novaProducao.size(); i++) {
             
@@ -103,7 +117,7 @@ public class SimplificacaoUnitaria {
             
         }
 
-       novaProducao = organizaProducoes(novaProducao);
+       //novaProducao = organizaProducoes(novaProducao);
         
        System.out.println("\n\n\nE O QUE TA SAINDO AQUI DIMITRY!!!"); 
        for (int i = 0; i < novaProducao.size(); i++) {
