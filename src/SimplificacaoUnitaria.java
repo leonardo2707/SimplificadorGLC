@@ -27,7 +27,7 @@ public class SimplificacaoUnitaria {
         for (int i = 0; i < p.size(); i++) {
 
             elementoDireito = getLadoDireito(Producoes.elementAt(i).toString());
-            for (int j = 0; j < t.size(); j++) {
+            for (int j = 0; j < n.size(); j++) {
 
                 NaoTerminais = n.elementAt(j).toString();
                 if (elementoDireito.equals(NaoTerminais)) {
@@ -51,7 +51,7 @@ public class SimplificacaoUnitaria {
         for (int i = 0; i < Producoes.size(); i++) {
 
             elementoDireito = getLadoDireito(Producoes.elementAt(i).toString());
-            for (int j = 0; j < t.size(); j++) {
+            for (int j = 0; j < n.size(); j++) {
 
                 NaoTerminais = n.elementAt(j).toString();
                 if (elementoDireito.equals(NaoTerminais)) {
