@@ -230,6 +230,13 @@ public class Principal extends javax.swing.JFrame {
                 v.add(a[i]);
             }
         }
+        
+        System.out.println("\n\nPRODUÇOES");
+       for (int i = 0; i < v.size(); i++) {
+            
+                System.out.println(v.elementAt(i));
+            
+        }
 
         return v;
 
@@ -246,6 +253,14 @@ public class Principal extends javax.swing.JFrame {
         }
         //fim da função
 
+        
+       System.out.println("\n\nTERMINAIS");
+       for (int i = 0; i < v.size(); i++) {
+            
+                System.out.println(v.elementAt(i));
+            
+        }
+        
         return v;
     }
 
@@ -260,6 +275,14 @@ public class Principal extends javax.swing.JFrame {
         }
         //fim da função
 
+       System.out.println("\n\nNAO TERMINAIS");
+       for (int i = 0; i < v.size(); i++) {
+            
+                System.out.println(v.elementAt(i));
+            
+        }
+        
+        
         return v;
 
     }

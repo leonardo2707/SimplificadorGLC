@@ -9,8 +9,9 @@ public class SimplificacaoUnitaria {
         int unitarias = verificarUnitarias(n, t, p);
 
         while (unitarias != 0) {
-            unitarias = verificarUnitarias(n, t, p);
+            
             p = removerProducaoUnit(n, t, p);
+            unitarias = verificarUnitarias(n, t, p);
 
         }
 
@@ -41,13 +42,13 @@ public class SimplificacaoUnitaria {
     public Vector removerProducaoUnit(Vector n, Vector t, Vector p) {
         Vector novaProducao = new Vector();
 
-        Vector Producoes = p;
+        Vector Producoes = organizaProducoes(p);
         String NaoTerminais;
         String elementoDireito;
         String ladoEsquerdo;
         String unitaria = new String();
 
-        for (int i = 0; i < p.size(); i++) {
+        for (int i = 0; i < Producoes.size(); i++) {
 
             elementoDireito = getLadoDireito(Producoes.elementAt(i).toString());
             for (int j = 0; j < t.size(); j++) {
@@ -62,7 +63,7 @@ public class SimplificacaoUnitaria {
 
         String producoesUnitaria = "";
         boolean flag = false;
-        //AQUI QUE REMOVE DE VERDADE
+        
         for (int i = 0; i < p.size(); i++) {
             ladoEsquerdo = getLadoEsquerdo(p.elementAt(i).toString());
             if (ladoEsquerdo.equals(unitaria)) {
@@ -77,18 +78,15 @@ public class SimplificacaoUnitaria {
             }
         }
 
+        novaProducao = p;
         for (int i = 0; i < p.size(); i++) {
 
-            elementoDireito = getLadoDireito(Producoes.elementAt(i).toString());
-            ladoEsquerdo = getLadoEsquerdo(Producoes.elementAt(i).toString());
+            elementoDireito = getLadoDireito(novaProducao.elementAt(i).toString());
+            ladoEsquerdo = getLadoEsquerdo(novaProducao.elementAt(i).toString());
 
-            if (elementoDireito.equals(unitaria)) {
-                novaProducao.add(ladoEsquerdo + "=" + producoesUnitaria);
-
-            } else {
-                if (!ladoEsquerdo.equals(unitaria)) {
-                    novaProducao.add(ladoEsquerdo + "=" + elementoDireito);
-                }
+            if(elementoDireito.equals(unitaria))
+            {
+                novaProducao.insertElementAt(ladoEsquerdo + "=" + producoesUnitaria, i);
             }
 
         }
