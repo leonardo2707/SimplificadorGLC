@@ -1,13 +1,157 @@
 
 import java.util.Vector;
-
+import javax.swing.JOptionPane;
 
 ////Casse que deve retornar a gramatica sem os simbolos unitarios
 public class SimplificacaoUnitaria {
-    
-    public String Simplificado(Vector n, Vector t, Vector P, String S)
-    {
-        return "";
+
+    public Vector Simplificado(Vector n, Vector t, Vector p, String s) {
+        int unitarias = verificarUnitarias(n, t, p);
+
+        while (unitarias != 0) {
+            unitarias = verificarUnitarias(n, t, p);
+            p = removerProducaoUnit(n, t, p);
+
+        }
+
+        return p;
     }
-    
+
+    public int verificarUnitarias(Vector n, Vector t, Vector p) {
+        int unitarias = 0;
+        Vector Producoes = p;
+        String NaoTerminais;
+        String elementoDireito;
+
+        for (int i = 0; i < p.size(); i++) {
+
+            elementoDireito = getLadoDireito(Producoes.elementAt(i).toString());
+            for (int j = 0; j < t.size(); j++) {
+
+                NaoTerminais = n.elementAt(j).toString();
+                if (elementoDireito.equals(NaoTerminais)) {
+                    unitarias++;
+                }
+            }
+        }
+
+        return unitarias;
+    }
+
+    public Vector removerProducaoUnit(Vector n, Vector t, Vector p) {
+        Vector novaProducao = new Vector();
+
+        Vector Producoes = p;
+        String NaoTerminais;
+        String elementoDireito;
+        String ladoEsquerdo;
+        String unitaria = new String();
+
+        for (int i = 0; i < p.size(); i++) {
+
+            elementoDireito = getLadoDireito(Producoes.elementAt(i).toString());
+            for (int j = 0; j < t.size(); j++) {
+
+                NaoTerminais = n.elementAt(j).toString();
+                if (elementoDireito.equals(NaoTerminais)) {
+                    unitaria = elementoDireito;
+
+                }
+            }
+        }
+
+        String producoesUnitaria = "";
+        boolean flag = false;
+        //AQUI QUE REMOVE DE VERDADE
+        for (int i = 0; i < p.size(); i++) {
+            ladoEsquerdo = getLadoEsquerdo(p.elementAt(i).toString());
+            if (ladoEsquerdo.equals(unitaria)) {
+                elementoDireito = getLadoDireito(p.elementAt(i).toString());
+                if (flag) {
+                    producoesUnitaria += "|" + elementoDireito;
+
+                } else {
+                    producoesUnitaria = elementoDireito;
+                    flag = true;
+                }
+            }
+        }
+
+        for (int i = 0; i < p.size(); i++) {
+
+            elementoDireito = getLadoDireito(Producoes.elementAt(i).toString());
+            ladoEsquerdo = getLadoEsquerdo(Producoes.elementAt(i).toString());
+
+            if (elementoDireito.equals(unitaria)) {
+                novaProducao.add(ladoEsquerdo + "=" + producoesUnitaria);
+
+            } else {
+                if (!ladoEsquerdo.equals(unitaria)) {
+                    novaProducao.add(ladoEsquerdo + "=" + elementoDireito);
+                }
+            }
+
+        }
+
+        novaProducao = organizaProducoes(novaProducao);
+
+        return novaProducao;
+    }
+
+    public String getLadoDireito(String Producao) {
+        String a[] = Producao.split("=");
+
+        return a[1];
+    }
+
+    public String getLadoEsquerdo(String Producao) {
+        String a[] = Producao.split("=");
+
+        return a[0];
+    }
+
+    public Vector separaPipe(String texto) {
+        Vector v = new Vector();
+        String a[] = texto.split("=");
+        String letraInicial = a[0];
+        String producoesComPipe = a[1];
+
+        String b[] = producoesComPipe.split("\\|");
+        String producao = "";
+
+        for (int i = 0; i < b.length; i++) {
+            producao = b[i];
+            v.add(letraInicial + "=" + producao);
+        }
+
+        return v;
+    }
+
+    public Vector organizaProducoes(Vector p) {
+        String producaoComleta = "";
+        String ladoEsquerdo;
+        String LadoDireito;
+        String producaoAnterior = "";
+
+        for (int i = 0; i < p.size(); i++) {
+            ladoEsquerdo = getLadoEsquerdo(p.elementAt(i).toString());
+            LadoDireito = getLadoDireito(p.elementAt(i).toString());
+            if (i == 0) {
+                producaoComleta = ladoEsquerdo + "=" + LadoDireito;
+                producaoAnterior = ladoEsquerdo;
+
+            } else {
+                if (producaoAnterior.equals(ladoEsquerdo)) {
+                    producaoComleta += "|" + LadoDireito;
+                } else {
+                    producaoComleta += "," + ladoEsquerdo + "=" + LadoDireito;
+                    producaoAnterior = ladoEsquerdo;
+                }
+            }
+        }
+        p = separaPipe(producaoComleta);
+
+        return p;
+    }
+
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Vector;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -35,8 +36,8 @@ public class Principal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         txtProducoes = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jbVaizia = new javax.swing.JButton();
+        jbUnit = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -54,14 +55,25 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel1.setText("Produções:");
 
-        jButton1.setText("Produções Vazias");
+        jbVaizia.setText("Produções Vazias");
+        jbVaizia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVaiziaActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Produções Unitárias");
+        jbUnit.setText("Produções Unitárias");
+        jbUnit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbUnitActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Simbolos Inúteis");
 
         jButton4.setText("Combinada");
 
+        txtResposta.setEditable(false);
         txtResposta.setColumns(20);
         txtResposta.setRows(5);
         jScrollPane1.setViewportView(txtResposta);
@@ -91,9 +103,9 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(jbVaizia)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
+                        .addComponent(jbUnit)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
@@ -139,11 +151,11 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jButton5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                    .addComponent(jbUnit)
                     .addComponent(jButton3)
                     .addComponent(jButton4)
                     .addComponent(jLabel3)
-                    .addComponent(jButton1))
+                    .addComponent(jbVaizia))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
@@ -172,10 +184,40 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jbVaiziaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVaiziaActionPerformed
+        // TODO add your handling code here:
 
+
+    }//GEN-LAST:event_jbVaiziaActionPerformed
+
+    private void jbUnitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUnitActionPerformed
+        // TODO add your handling code here:
+
+        SimplificacaoUnitaria unit = new SimplificacaoUnitaria();
+
+        if (!txtNaoTerminal.getText().equals("") && !txtProducoes.getText().equals("") && !txtTerminais.getText().equals("")) {
+            mostrarProducoes(unit.Simplificado(getNaoTerminais(), getTerminais(), getProducoes(), getSimboloInicial()));
+        } else {
+            JOptionPane.showConfirmDialog(null, "Preencha todos os campos");
+        }
+    }//GEN-LAST:event_jbUnitActionPerformed
+
+    public void mostrarProducoes(Vector v) {
+        String Producoes = "";
+
+        for (int i = 0; i < v.size(); i++) {
+            if (i == 0) {
+                Producoes = v.elementAt(i).toString();
+            } else {
+                Producoes += "\n" + v.elementAt(i).toString();
+            }
+        }
+
+        txtResposta.setText(Producoes);
+    }
 
     public Vector getProducoes() {
-        
+
         Vector v = new Vector();
         String Producoes = "";
 
@@ -188,17 +230,7 @@ public class Principal extends javax.swing.JFrame {
                 v.add(a[i]);
             }
         }
-        
-        for(int i = 0; i < v.size(); i++)
-        {
-            if (i == 0) {
-                Producoes = v.elementAt(i).toString();
-            } else {
-                Producoes += "\n" + v.elementAt(i).toString();
-            }
-        }
 
-        txtResposta.setText(Producoes);
         return v;
 
     }
@@ -214,15 +246,6 @@ public class Principal extends javax.swing.JFrame {
         }
         //fim da função
 
-        for (int i = 0; i < v.size(); i++) {
-            if (i == 0) {
-                terminais = v.elementAt(i).toString();
-            } else {
-                terminais += " " + v.elementAt(i).toString();
-            }
-        }
-
-        txtResposta.setText(terminais);
         return v;
     }
 
@@ -237,36 +260,25 @@ public class Principal extends javax.swing.JFrame {
         }
         //fim da função
 
-        for (int i = 0; i < v.size(); i++) {
-            if (i == 0) {
-                naoTerminais = v.elementAt(i).toString();
-            } else {
-                naoTerminais += " " + v.elementAt(i).toString();
-            }
-        }
-
-        txtResposta.setText(naoTerminais);
         return v;
 
     }
-    
-     public void separaPipe(Vector v, String texto) {
+
+    public void separaPipe(Vector v, String texto) {
         String a[] = texto.split("=");
         String letraInicial = a[0];
         String producoesComPipe = a[1];
-        
+
         String b[] = producoesComPipe.split("\\|");
         String producao = "";
-        
-        for(int i = 0; i < b.length; i++)
-        {
+
+        for (int i = 0; i < b.length; i++) {
             producao = b[i];
-            v.add(letraInicial+ "=" + producao);
+            v.add(letraInicial + "=" + producao);
         }
     }
-     
-    public String getSimboloInicial()
-    {
+
+    public String getSimboloInicial() {
         String texto = txtProducoes.getText();
         String a[] = texto.split("=");
         return a[0];
@@ -308,8 +320,6 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -320,6 +330,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbUnit;
+    private javax.swing.JButton jbVaizia;
     private javax.swing.JTextField txtNaoTerminal;
     private javax.swing.JTextField txtProducoes;
     private javax.swing.JTextArea txtResposta;
