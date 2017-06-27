@@ -53,6 +53,8 @@ public class Principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SGLC");
 
+        txtProducoes.setText("S=aS|B,B=aS|DF,D=sB|aS");
+
         jLabel1.setText("Produções:");
 
         jbVaizia.setText("Produções Vazias");
@@ -92,6 +94,10 @@ public class Principal extends javax.swing.JFrame {
         jLabel5.setText("Terminais:");
 
         jLabel6.setText("Não Terminais:");
+
+        txtTerminais.setText("a,s");
+
+        txtNaoTerminal.setText("S,B,D");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
