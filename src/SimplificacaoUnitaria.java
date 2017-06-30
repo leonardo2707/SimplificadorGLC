@@ -48,6 +48,7 @@ public class SimplificacaoUnitaria {
         String ladoEsquerdo;
         String unitaria = new String();
 
+        //PEGA PRODUCAO UNITARIA
         for (int i = 0; i < Producoes.size(); i++) {
 
             elementoDireito = getLadoDireito(Producoes.elementAt(i).toString());
@@ -63,7 +64,7 @@ public class SimplificacaoUnitaria {
 
         String producoesUnitaria = "";
         boolean flag = false;
-        
+        //pega regras do producao que tem unitaria
         for (int i = 0; i < p.size(); i++) {
             ladoEsquerdo = getLadoEsquerdo(p.elementAt(i).toString());
             if (ladoEsquerdo.equals(unitaria)) {
@@ -81,6 +82,7 @@ public class SimplificacaoUnitaria {
             }
         }
         
+        //Substitui unitaria com a producao pegada no for anterior
        for (int i = 0; i < Producoes.size(); i++) {
 
             elementoDireito = getLadoDireito(Producoes.elementAt(i).toString());

@@ -24,7 +24,6 @@ public class SimplificacaoVazias {
         for (int i = 0; i < p.size(); i++) {
 
             elementoDireito = getLadoDireito(Producoes.elementAt(i).toString());
-
             if (elementoDireito.equals("&")) {
                 vazias++;
             }
@@ -53,7 +52,7 @@ public class SimplificacaoVazias {
         }
 
         //Deleta Vazio da producao 
-        for (int i = 0; i < p.size(); i++) {
+        for (int i = 0; i < Producoes.size(); i++) {
 
             elementoDireito = getLadoDireito(Producoes.elementAt(i).toString());
             ladoEsquerdo = getLadoEsquerdo(Producoes.elementAt(i).toString());
@@ -65,31 +64,85 @@ public class SimplificacaoVazias {
         }
 
         String producoesPossiveis = "";
-        
+
         //trocar producções que possuim o não terminal que tinha o vazio
         for (int i = 0; i < Producoes.size(); i++) {
 
             elementoDireito = getLadoDireito(Producoes.elementAt(i).toString());
             ladoEsquerdo = getLadoEsquerdo(Producoes.elementAt(i).toString());
-            if(elementoDireito.contains(NaoTerminalGeraVazio))
-            {
+            if (elementoDireito.contains(NaoTerminalGeraVazio)) {
                 producoesPossiveis = geraTodasProducoes(elementoDireito, NaoTerminalGeraVazio);
-                novaProducao.add(ladoEsquerdo + "=" + producoesPossiveis );
-                
-            }else
-            {
-                novaProducao.add(Producoes.elementAt(i));
+                novaProducao.add(ladoEsquerdo + "=" + producoesPossiveis);
+
+            } else {
+                novaProducao.add(Producoes.elementAt(i).toString());
             }
         }
-        
+
         novaProducao = organizaProducoes(novaProducao);
 
         return novaProducao;
     }
-    
-    public String geraTodasProducoes(String producao, String NaoTerminal)
-    {
-        return " ";
+
+    public String geraTodasProducoes(String producao, String NaoTerminal) {
+        int quantidade = 0;
+
+        //pegar quantas vezes o não terminal aparece na producao
+        for (int i = 0; i < producao.length(); i++) {
+            if (producao.charAt(i) == NaoTerminal.charAt(0)) {
+                quantidade++;
+            }
+        }
+
+        int[] indices = new int[quantidade];
+        int j = 0;
+        //pegar a posicao de cada nao terminal na producao
+        for (int i = 0; i < producao.length(); i++) {
+            if (producao.charAt(i) == NaoTerminal.charAt(0)) {
+                indices[j] = i;
+                j++;
+            }
+        }
+        j = 0;
+
+        String producaoNova = "";
+        String producaoAux = "";
+        int repeticoes = quantidade*2;
+        //percorrer toda a lista
+        
+        for(int i=0; i < quantidade; i ++)
+        {
+            for(j=0; j < quantidade; j++)
+            {
+                if(i == 0)
+                {
+                    producaoNova = producao + "|" + retornaStringDaproducaoSemValorIndice(producao, indices[i]);
+                }else
+                {
+                    producaoNova +=  "|" + retornaStringDaproducaoSemValorIndice(producao, indices[i]);
+                }
+            }
+        }
+        
+        
+        return producaoNova;
+    }
+
+    public String retornaStringDaproducaoSemValorIndice(String producao, int indice) {
+        char[] producaoChar = producao.toCharArray();
+        String producaoNova = "";
+
+        for (int i = 0; i < producao.length(); i++) {
+            
+            if(i!= indice)
+            {
+                producaoNova += producaoChar[i];
+            }
+            
+        }
+        
+        return producaoNova;
+
     }
 
     public Vector organizaProducoes(Vector p) {
